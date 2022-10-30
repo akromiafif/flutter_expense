@@ -11,21 +11,15 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Stack(
-      children: <Widget>[
-        Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [appYellowSoft, appPrimary.withOpacity(0.2)],
-            ),
-          ),
-        ),
-        SafeArea(
-          child: Column(
-            children: <Widget>[
-              Row(
+      body: SafeArea(
+        child: Column(
+          children: <Widget>[
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              decoration: BoxDecoration(
+                color: appYellowSoft.withOpacity(0.4),
+              ),
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   const CircleAvatar(),
@@ -45,45 +39,59 @@ class HomeView extends GetView<HomeController> {
                     icon: Icon(
                       Icons.notifications,
                       color: appPrimary,
+                      size: 35,
                     ),
                   )
                 ],
               ),
-              const SizedBox(height: 20),
-              Text(
-                "Account Balance",
-                style: GoogleFonts.inter(
-                  fontSize: 14,
-                  color: appTextSoft,
+            ),
+            Container(
+              padding: const EdgeInsets.only(bottom: 20),
+              decoration: BoxDecoration(
+                color: appYellowSoft.withOpacity(0.4),
+                borderRadius: const BorderRadius.only(
+                  bottomLeft: Radius.circular(30),
+                  bottomRight: Radius.circular(30),
                 ),
               ),
-              Text(
-                "\$9400",
-                style: GoogleFonts.inter(
-                  fontSize: 40,
-                  color: appText,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              const SizedBox(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: const <Widget>[
-                  InfoBalance(
-                    isIncome: true,
-                    balance: 5000,
+              child: Column(
+                children: <Widget>[
+                  Text(
+                    "Account Balance",
+                    style: GoogleFonts.inter(
+                      fontSize: 14,
+                      color: appTextSoft,
+                    ),
                   ),
-                  InfoBalance(
-                    isIncome: false,
-                    balance: 7500,
+                  Text(
+                    "\$9400",
+                    style: GoogleFonts.inter(
+                      fontSize: 40,
+                      color: appText,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: const <Widget>[
+                      InfoBalance(
+                        isIncome: true,
+                        balance: 5000,
+                      ),
+                      InfoBalance(
+                        isIncome: false,
+                        balance: 7500,
+                      ),
+                    ],
                   ),
                 ],
               ),
-            ],
-          ),
-        )
-      ],
-    ));
+            )
+          ],
+        ),
+      ),
+    );
   }
 }
 
@@ -100,11 +108,11 @@ class InfoBalance extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: Get.width * 0.4,
+      width: Get.width * 0.45,
       padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
         color: isIncome ? appGreen : appRed,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(25),
       ),
       child: Row(
         children: <Widget>[
@@ -136,7 +144,7 @@ class InfoBalance extends StatelessWidget {
                   child: Text(
                     "\$$balance",
                     style: GoogleFonts.inter(
-                      fontSize: 18,
+                      fontSize: 20,
                       color: appWhite,
                       fontWeight: FontWeight.w700,
                     ),
