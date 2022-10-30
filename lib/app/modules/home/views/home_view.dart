@@ -52,13 +52,9 @@ class HomeView extends GetView<HomeController> {
               const SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  const InfoBalance(),
-                  Container(
-                    width: Get.width * 0.35,
-                    height: 70,
-                    color: appRed,
-                  )
+                children: const <Widget>[
+                  InfoBalance(isIncome: true),
+                  InfoBalance(isIncome: false),
                 ],
               ),
             ],
@@ -72,7 +68,10 @@ class HomeView extends GetView<HomeController> {
 class InfoBalance extends StatelessWidget {
   const InfoBalance({
     Key? key,
+    required this.isIncome,
   }) : super(key: key);
+
+  final bool isIncome;
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +79,7 @@ class InfoBalance extends StatelessWidget {
       width: Get.width * 0.4,
       padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
-        color: appBlue,
+        color: isIncome ? appGreen : appRed,
         borderRadius: BorderRadius.circular(20),
       ),
       child: Row(
@@ -92,7 +91,8 @@ class InfoBalance extends StatelessWidget {
               color: appWhite,
               borderRadius: BorderRadius.circular(10),
             ),
-            child: Image.asset("assets/icons/in.png"),
+            child: Image.asset(
+                isIncome ? "assets/icons/in.png" : "assets/icons/out.png"),
           ),
           const SizedBox(width: 10),
           Expanded(
