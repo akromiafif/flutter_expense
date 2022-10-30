@@ -1,3 +1,4 @@
+import 'package:expense/app/constant/color.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -9,15 +10,115 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('HomeView'),
-        centerTitle: true,
-      ),
-      body: Center(
-        child: Text(
-          'HomeView is working',
-          style: TextStyle(fontSize: 20),
+        body: Stack(
+      children: <Widget>[
+        Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [appYellowSoft, appPrimary.withOpacity(0.2)],
+            ),
+          ),
         ),
+        SafeArea(
+          child: Column(
+            children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  const CircleAvatar(),
+                  Row(
+                    children: const [
+                      Icon(Icons.keyboard_arrow_down_outlined),
+                      Text("October"),
+                    ],
+                  ),
+                  IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.notifications,
+                      color: appPrimary,
+                    ),
+                  )
+                ],
+              ),
+              const SizedBox(height: 20),
+              const Text("Account Balance"),
+              const Text(
+                "\$9400",
+                style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  const InfoBalance(),
+                  Container(
+                    width: Get.width * 0.35,
+                    height: 70,
+                    color: appRed,
+                  )
+                ],
+              ),
+            ],
+          ),
+        )
+      ],
+    ));
+  }
+}
+
+class InfoBalance extends StatelessWidget {
+  const InfoBalance({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: Get.width * 0.4,
+      padding: const EdgeInsets.all(15),
+      decoration: BoxDecoration(
+        color: appBlue,
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Row(
+        children: <Widget>[
+          Container(
+            width: 50,
+            height: 50,
+            decoration: BoxDecoration(
+              color: appWhite,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Image.asset("assets/icons/in.png"),
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  "Income",
+                  style: TextStyle(color: appWhite),
+                ),
+                const SizedBox(height: 5),
+                FittedBox(
+                  child: Text(
+                    "\$50000",
+                    style: TextStyle(
+                      color: appWhite,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                )
+              ],
+            ),
+          )
+        ],
       ),
     );
   }
