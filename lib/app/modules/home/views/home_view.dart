@@ -53,8 +53,14 @@ class HomeView extends GetView<HomeController> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: const <Widget>[
-                  InfoBalance(isIncome: true),
-                  InfoBalance(isIncome: false),
+                  InfoBalance(
+                    isIncome: true,
+                    balance: 5000,
+                  ),
+                  InfoBalance(
+                    isIncome: false,
+                    balance: 7500,
+                  ),
                 ],
               ),
             ],
@@ -69,9 +75,11 @@ class InfoBalance extends StatelessWidget {
   const InfoBalance({
     Key? key,
     required this.isIncome,
+    required this.balance,
   }) : super(key: key);
 
   final bool isIncome;
+  final int balance;
 
   @override
   Widget build(BuildContext context) {
@@ -101,13 +109,13 @@ class InfoBalance extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  "Income",
+                  isIncome ? "Income" : "Outcome",
                   style: TextStyle(color: appWhite),
                 ),
                 const SizedBox(height: 5),
                 FittedBox(
                   child: Text(
-                    "\$50000",
+                    "\$$balance",
                     style: TextStyle(
                       color: appWhite,
                       fontSize: 16,
