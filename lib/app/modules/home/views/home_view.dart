@@ -2,6 +2,7 @@ import 'package:expense/app/constant/color.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../controllers/home_controller.dart';
 
@@ -29,9 +30,14 @@ class HomeView extends GetView<HomeController> {
                 children: <Widget>[
                   const CircleAvatar(),
                   Row(
-                    children: const [
-                      Icon(Icons.keyboard_arrow_down_outlined),
-                      Text("October"),
+                    children: [
+                      const Icon(Icons.keyboard_arrow_down_outlined),
+                      Text(
+                        "October",
+                        style: GoogleFonts.inter(
+                          fontSize: 14,
+                        ),
+                      ),
                     ],
                   ),
                   IconButton(
@@ -44,10 +50,20 @@ class HomeView extends GetView<HomeController> {
                 ],
               ),
               const SizedBox(height: 20),
-              const Text("Account Balance"),
-              const Text(
+              Text(
+                "Account Balance",
+                style: GoogleFonts.inter(
+                  fontSize: 14,
+                  color: appTextSoft,
+                ),
+              ),
+              Text(
                 "\$9400",
-                style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+                style: GoogleFonts.inter(
+                  fontSize: 40,
+                  color: appText,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
               const SizedBox(height: 10),
               Row(
@@ -109,17 +125,20 @@ class InfoBalance extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  isIncome ? "Income" : "Outcome",
-                  style: TextStyle(color: appWhite),
+                  isIncome ? "Income" : "Expenses",
+                  style: GoogleFonts.inter(
+                    fontSize: 14,
+                    color: appWhite,
+                  ),
                 ),
                 const SizedBox(height: 5),
                 FittedBox(
                   child: Text(
                     "\$$balance",
-                    style: TextStyle(
+                    style: GoogleFonts.inter(
+                      fontSize: 18,
                       color: appWhite,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w700,
                     ),
                   ),
                 )
