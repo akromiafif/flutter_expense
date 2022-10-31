@@ -3,11 +3,18 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
-  const HomeView({Key? key}) : super(key: key);
+  HomeView({Key? key}) : super(key: key);
+  var selected = 2.obs;
+
+  void setSelected(var value) {
+    selected.value = value;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -87,8 +94,87 @@ class HomeView extends GetView<HomeController> {
                   ),
                 ],
               ),
-            )
+            ),
+            const SizedBox(height: 20),
           ],
+        ),
+      ),
+      bottomNavigationBar: ConvexAppBar(
+        initialActiveIndex: 2,
+        backgroundColor: appWhite,
+        activeColor: appWhite,
+        style: TabStyle.reactCircle,
+        color: appPrimary,
+        items: [
+          TabItem<Widget>(
+            icon: ButtomTabItem(
+              selected: selected,
+              index: 0,
+              imageSource: "assets/icons/home.png",
+            ),
+            title: 'Home',
+          ),
+          TabItem(
+            icon: ButtomTabItem(
+              selected: selected,
+              index: 1,
+              imageSource: "assets/icons/transaction.png",
+            ),
+            title: 'Transaction',
+          ),
+          TabItem(
+            icon: ButtomTabItem(
+              selected: selected,
+              index: 2,
+              imageSource: "assets/icons/add.png",
+            ),
+            title: 'Add',
+          ),
+          TabItem(
+            icon: ButtomTabItem(
+              selected: selected,
+              index: 3,
+              imageSource: "assets/icons/budget.png",
+            ),
+            title: 'Budget',
+          ),
+          TabItem(
+            icon: ButtomTabItem(
+              selected: selected,
+              index: 4,
+              imageSource: "assets/icons/profile.png",
+            ),
+            title: 'Profile',
+          ),
+        ],
+        onTap: (int i) => {setSelected(i)},
+      ),
+    );
+  }
+}
+
+class ButtomTabItem extends StatelessWidget {
+  const ButtomTabItem({
+    Key? key,
+    required this.selected,
+    required this.imageSource,
+    required this.index,
+  }) : super(key: key);
+
+  final RxInt selected;
+  final int index;
+  final String imageSource;
+
+  @override
+  Widget build(BuildContext context) {
+    return Obx(
+      () => Container(
+        padding: EdgeInsets.all(selected.value == index ? 15 : 0),
+        child: Image.asset(
+          imageSource,
+          width: 60,
+          height: 60,
+          color: selected.value == index ? appPrimary : appTextSoft,
         ),
       ),
     );
