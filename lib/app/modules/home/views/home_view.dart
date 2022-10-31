@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../controllers/home_controller.dart';
 
@@ -17,6 +18,19 @@ class HomeView extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
+    final List<ChartData> chartData = [
+      ChartData(17, 21500),
+      ChartData(18, 22684),
+      ChartData(19, 21643),
+      ChartData(20, 22997),
+      ChartData(21, 22883),
+      ChartData(22, 22635),
+      ChartData(23, 21800),
+      ChartData(24, 23500),
+      ChartData(25, 21354),
+      ChartData(26, 22354),
+    ];
+
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -43,7 +57,7 @@ class HomeView extends GetView<HomeController> {
                   ),
                   IconButton(
                     onPressed: () {},
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.notifications,
                       color: appPrimary,
                       size: 35,
@@ -95,17 +109,75 @@ class HomeView extends GetView<HomeController> {
                 ],
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
+            Expanded(
+              child: ListView(
+                children: <Widget>[
+                  SfCartesianChart(
+                    margin: const EdgeInsets.all(0),
+                    borderWidth: 0,
+                    borderColor: Colors.white,
+                    primaryXAxis: NumericAxis(
+                      minimum: 17,
+                      maximum: 26,
+                      interval: 1,
+                      isVisible: false,
+                      borderWidth: 0,
+                      borderColor: Colors.transparent,
+                    ),
+                    primaryYAxis: NumericAxis(
+                      minimum: 19000,
+                      maximum: 24000,
+                      interval: 1000,
+                      isVisible: false,
+                      borderWidth: 0,
+                      borderColor: Colors.transparent,
+                    ),
+                    series: <ChartSeries<ChartData, int>>[
+                      SplineAreaSeries(
+                        dataSource: chartData,
+                        xValueMapper: (ChartData data, _) => data.day,
+                        yValueMapper: (ChartData data, _) => data.price,
+                        gradient: LinearGradient(
+                          colors: <Color>[
+                            appPurpleAccent.withOpacity(0.5),
+                            appWhite
+                          ],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                        ),
+                        splineType: SplineType.natural,
+                      ),
+                      SplineSeries(
+                        width: 4,
+                        markerSettings: const MarkerSettings(
+                          color: appPurpleSoft,
+                          borderWidth: 2,
+                          shape: DataMarkerType.circle,
+                          borderColor: appPurpleAccent,
+                          isVisible: true,
+                        ),
+                        color: appPurpleAccent,
+                        dataSource: chartData,
+                        xValueMapper: (ChartData data, _) => data.day,
+                        yValueMapper: (ChartData data, _) => data.price,
+                      )
+                    ],
+                  ),
+                ],
+              ),
+            )
           ],
         ),
       ),
       bottomNavigationBar: ConvexAppBar(
         initialActiveIndex: 2,
         backgroundColor: appWhiteSoft,
-        activeColor: appWhite,
+        activeColor: appPrimary,
         style: TabStyle.reactCircle,
         color: appTextSoft,
         height: 70,
+        curveSize: 80,
         items: [
           TabItem<Widget>(
             icon: ButtomTabItem(
@@ -170,12 +242,12 @@ class ButtomTabItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(
       () => Container(
-        padding: EdgeInsets.all(selected.value == index ? 15 : 0),
+        padding: EdgeInsets.all(selected.value == index ? 20 : 0),
         child: Image.asset(
           imageSource,
           width: 60,
           height: 60,
-          color: selected.value == index ? appPrimary : appTextSoft,
+          color: selected.value == index ? appWhiteSoft : appTextSoft,
         ),
       ),
     );
@@ -244,4 +316,10 @@ class InfoBalance extends StatelessWidget {
       ),
     );
   }
+}
+
+class ChartData {
+  ChartData(this.day, this.price);
+  final int day;
+  final double price;
 }
