@@ -101,10 +101,11 @@ class HomeView extends GetView<HomeController> {
       ),
       bottomNavigationBar: ConvexAppBar(
         initialActiveIndex: 2,
-        backgroundColor: appWhite,
+        backgroundColor: appWhiteSoft,
         activeColor: appWhite,
         style: TabStyle.reactCircle,
-        color: appPrimary,
+        color: appTextSoft,
+        height: 70,
         items: [
           TabItem<Widget>(
             icon: ButtomTabItem(
